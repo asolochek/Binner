@@ -387,9 +387,9 @@ namespace Binner.Legacy.StorageProviders
             try
             {
                 var totalItems = _db.Parts
-                    .Count(x => x.Quantity <= x.LowStockThreshold && x.UserId == userContext?.UserId);
+                    .Count(x => x.LowStockThreshold > 0 && x.Quantity <= x.LowStockThreshold && x.UserId == userContext?.UserId);
                 var parts = _db.Parts
-                    .Where(x => x.Quantity <= x.LowStockThreshold && x.UserId == userContext?.UserId)
+                    .Where(x => x.LowStockThreshold > 0 && x.Quantity <= x.LowStockThreshold && x.UserId == userContext?.UserId)
                     .OrderBy(string.IsNullOrEmpty(request.OrderBy) ? "PartId" : request.OrderBy, request.Direction)
                     .Skip(pageRecords)
                     .Take(request.Results)
