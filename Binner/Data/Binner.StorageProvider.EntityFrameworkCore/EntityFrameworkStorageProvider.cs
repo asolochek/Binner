@@ -674,7 +674,7 @@ INNER JOIN (
                 request.OrderBy = request.OrderBy.UcFirst();
             }
 
-            var entitiesQueryable = GetPartsQueryable(context, request, userContext, x => x.Quantity <= x.LowStockThreshold);
+            var entitiesQueryable = GetPartsQueryable(context, request, userContext, x => x.LowStockThreshold > 0 && x.Quantity <= x.LowStockThreshold);
 
             var pageRecords = (request.Page - 1) * request.Results;
             var totalItems = await entitiesQueryable.CountAsync();
